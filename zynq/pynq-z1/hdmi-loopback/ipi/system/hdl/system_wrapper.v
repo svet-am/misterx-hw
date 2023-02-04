@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-//Date        : Fri Feb  3 22:42:17 2023
+//Date        : Sat Feb  4 16:08:38 2023
 //Host        : tonys-desktop running 64-bit major release  (build 9200)
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -41,7 +41,8 @@ module system_wrapper
     hdmi_tx_clk_n,
     hdmi_tx_clk_p,
     hdmi_tx_data_n,
-    hdmi_tx_data_p);
+    hdmi_tx_data_p,
+    sys_clock);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -74,6 +75,7 @@ module system_wrapper
   output hdmi_tx_clk_p;
   output [2:0]hdmi_tx_data_n;
   output [2:0]hdmi_tx_data_p;
+  input sys_clock;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -113,6 +115,7 @@ module system_wrapper
   wire hdmi_tx_clk_p;
   wire [2:0]hdmi_tx_data_n;
   wire [2:0]hdmi_tx_data_p;
+  wire sys_clock;
 
   IOBUF hdmi_rx_ddc_scl_iobuf
        (.I(hdmi_rx_ddc_scl_o),
@@ -160,5 +163,6 @@ module system_wrapper
         .hdmi_tx_clk_n(hdmi_tx_clk_n),
         .hdmi_tx_clk_p(hdmi_tx_clk_p),
         .hdmi_tx_data_n(hdmi_tx_data_n),
-        .hdmi_tx_data_p(hdmi_tx_data_p));
+        .hdmi_tx_data_p(hdmi_tx_data_p),
+        .sys_clock(sys_clock));
 endmodule

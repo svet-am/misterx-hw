@@ -1,7 +1,7 @@
 //Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
-//Date        : Fri Feb  3 20:00:52 2023
+//Date        : Sat Feb  4 15:08:16 2023
 //Host        : tonys-desktop running 64-bit major release  (build 9200)
 //Command     : generate_target system_wrapper.bd
 //Design      : system_wrapper
@@ -31,17 +31,18 @@ module system_wrapper
     FIXED_IO_ps_clk,
     FIXED_IO_ps_porb,
     FIXED_IO_ps_srstb,
-    hdmi_rx_ddc_scl_io,
-    hdmi_rx_ddc_sda_io,
     hdmi_rx_clk_n,
     hdmi_rx_clk_p,
     hdmi_rx_data_n,
     hdmi_rx_data_p,
+    hdmi_rx_ddc_scl_io,
+    hdmi_rx_ddc_sda_io,
     hdmi_rx_hpd,
     hdmi_tx_clk_n,
     hdmi_tx_clk_p,
     hdmi_tx_data_n,
-    hdmi_tx_data_p);
+    hdmi_tx_data_p,
+    sys_clock);
   inout [14:0]DDR_addr;
   inout [2:0]DDR_ba;
   inout DDR_cas_n;
@@ -63,17 +64,18 @@ module system_wrapper
   inout FIXED_IO_ps_clk;
   inout FIXED_IO_ps_porb;
   inout FIXED_IO_ps_srstb;
-  inout hdmi_rx_ddc_scl_io;
-  inout hdmi_rx_ddc_sda_io;
   input hdmi_rx_clk_n;
   input hdmi_rx_clk_p;
   input [2:0]hdmi_rx_data_n;
   input [2:0]hdmi_rx_data_p;
+  inout hdmi_rx_ddc_scl_io;
+  inout hdmi_rx_ddc_sda_io;
   output [0:0]hdmi_rx_hpd;
   output hdmi_tx_clk_n;
   output hdmi_tx_clk_p;
   output [2:0]hdmi_tx_data_n;
   output [2:0]hdmi_tx_data_p;
+  input sys_clock;
 
   wire [14:0]DDR_addr;
   wire [2:0]DDR_ba;
@@ -96,6 +98,10 @@ module system_wrapper
   wire FIXED_IO_ps_clk;
   wire FIXED_IO_ps_porb;
   wire FIXED_IO_ps_srstb;
+  wire hdmi_rx_clk_n;
+  wire hdmi_rx_clk_p;
+  wire [2:0]hdmi_rx_data_n;
+  wire [2:0]hdmi_rx_data_p;
   wire hdmi_rx_ddc_scl_i;
   wire hdmi_rx_ddc_scl_io;
   wire hdmi_rx_ddc_scl_o;
@@ -104,15 +110,12 @@ module system_wrapper
   wire hdmi_rx_ddc_sda_io;
   wire hdmi_rx_ddc_sda_o;
   wire hdmi_rx_ddc_sda_t;
-  wire hdmi_rx_clk_n;
-  wire hdmi_rx_clk_p;
-  wire [2:0]hdmi_rx_data_n;
-  wire [2:0]hdmi_rx_data_p;
   wire [0:0]hdmi_rx_hpd;
   wire hdmi_tx_clk_n;
   wire hdmi_tx_clk_p;
   wire [2:0]hdmi_tx_data_n;
   wire [2:0]hdmi_tx_data_p;
+  wire sys_clock;
 
   IOBUF hdmi_rx_ddc_scl_iobuf
        (.I(hdmi_rx_ddc_scl_o),
@@ -146,19 +149,20 @@ module system_wrapper
         .FIXED_IO_ps_clk(FIXED_IO_ps_clk),
         .FIXED_IO_ps_porb(FIXED_IO_ps_porb),
         .FIXED_IO_ps_srstb(FIXED_IO_ps_srstb),
+        .hdmi_rx_clk_n(hdmi_rx_clk_n),
+        .hdmi_rx_clk_p(hdmi_rx_clk_p),
+        .hdmi_rx_data_n(hdmi_rx_data_n),
+        .hdmi_rx_data_p(hdmi_rx_data_p),
         .hdmi_rx_ddc_scl_i(hdmi_rx_ddc_scl_i),
         .hdmi_rx_ddc_scl_o(hdmi_rx_ddc_scl_o),
         .hdmi_rx_ddc_scl_t(hdmi_rx_ddc_scl_t),
         .hdmi_rx_ddc_sda_i(hdmi_rx_ddc_sda_i),
         .hdmi_rx_ddc_sda_o(hdmi_rx_ddc_sda_o),
         .hdmi_rx_ddc_sda_t(hdmi_rx_ddc_sda_t),
-        .hdmi_rx_clk_n(hdmi_rx_clk_n),
-        .hdmi_rx_clk_p(hdmi_rx_clk_p),
-        .hdmi_rx_data_n(hdmi_rx_data_n),
-        .hdmi_rx_data_p(hdmi_rx_data_p),
         .hdmi_rx_hpd(hdmi_rx_hpd),
         .hdmi_tx_clk_n(hdmi_tx_clk_n),
         .hdmi_tx_clk_p(hdmi_tx_clk_p),
         .hdmi_tx_data_n(hdmi_tx_data_n),
-        .hdmi_tx_data_p(hdmi_tx_data_p));
+        .hdmi_tx_data_p(hdmi_tx_data_p),
+        .sys_clock(sys_clock));
 endmodule
