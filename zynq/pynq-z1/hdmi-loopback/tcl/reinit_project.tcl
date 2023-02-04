@@ -1,8 +1,9 @@
 # Get common environment information
 set scriptPath [ file dirname [ file normalize [ info script ] ] ]
 set hostOS [lindex $tcl_platform(os) 0]
+puts $scriptPath
 
-create_project project ../work -part xc7z020clg400-1
+create_project project $scriptPath/../work -part xc7z020clg400-1
 set_msg_config -id {[IP_Flow 19-4965]} -new_severity {WARNING}
 
 set_param board.repoPaths $scriptPath/../../../../board_files/
@@ -12,7 +13,7 @@ update_ip_catalog
 
 set_property board_part www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
 
-create_bd_design -dir {$scriptPath/../ipi} "system"
+create_bd_design -dir $scriptPath/../ipi "system"
 
 startgroup
 create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0
@@ -74,4 +75,4 @@ close_bd_design [get_bd_designs system]
 add_files -norecurse $scriptPath/../src/system_wrapper.v
 add_files -fileset constrs_1 -norecurse $scriptPath/../constr/PYNQ-Z1_C.xdc
 
-launch_runs impl_1 -to_step write_bitstream -jobs 19
+# launch_runs impl_1 -to_step write_bitstream -jobs 19
