@@ -1,3 +1,6 @@
 [submodule "vivado-library"]
 	path = vivado-library
 	url = https://github.com/Digilent/vivado-library.git
+[submodule "hdmi"]
+	path = hdmi
+	url = https://github.com/hdl-util/hdmi.git
